@@ -1,0 +1,3 @@
+../Core/Src/Settings.c:60:6:Settings_PreInit	8	static
+../Core/Src/Settings.c:89:6:Settings_Init	80	static
+../Core/Src/Settings.c:267:6:Settings_Update	80	static

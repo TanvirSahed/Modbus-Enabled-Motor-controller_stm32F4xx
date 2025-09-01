@@ -1,0 +1,9 @@
+../Core/Src/Filters/Filters.c:63:12:FLTR_ApplyMedian	6
+../Core/Src/Filters/Filters.c:86:12:FLTR_ApplyMovAvg	5
+../Core/Src/Filters/Filters.c:106:6:FLTR_InitMedian	1
+../Core/Src/Filters/Filters.c:119:6:FLTR_InitMovAvg	1
+../Core/Src/Filters/Filters.c:134:9:FLTR_ApplyDebounce	5
+../Core/Src/Filters/Filters.c:153:6:FLTR_StartDebounceExti	1
+../Core/Src/Filters/Filters.c:172:9:FLTR_ApplyDebounceExti	2
+../Core/Src/Filters/Filters.c:185:6:FLTR_ClearDebounce	1
+../Core/Src/Filters/Filters.c:198:5:CompFunc	1

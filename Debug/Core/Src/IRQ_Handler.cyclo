@@ -1,0 +1,4 @@
+../Core/Src/IRQ_Handler.c:30:6:HAL_GPIO_EXTI_Callback	3
+../Core/Src/IRQ_Handler.c:63:6:HAL_TIM_IC_CaptureCallback	3
+../Core/Src/IRQ_Handler.c:81:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/IRQ_Handler.c:109:6:HAL_UARTEx_RxEventCallback	18

@@ -1,0 +1,5 @@
+../Core/Src/PID/PID_Controller.c:17:6:PID_Controller	16	static
+../Core/Src/PID/PID_Controller.c:99:13:PID_Proportional	16	static
+../Core/Src/PID/PID_Controller.c:107:13:PID_Integral	16	static
+../Core/Src/PID/PID_Controller.c:115:13:PID_Derivative	24	static
+../Core/Src/PID/PID_Controller.c:129:6:PID_UpdateSpReso	16	static

@@ -1,0 +1,11 @@
+../Core/Src/Encoder/EncoderIf.c:29:6:Encoder_Init_If	4	static
+../Core/Src/Encoder/EncoderIf.c:44:18:ENC0_StartLearningCB	16	static
+../Core/Src/Encoder/EncoderIf.c:53:18:ENC0_StopLearningCB	16	static
+../Core/Src/Encoder/EncoderIf.c:62:18:ENC0_CheckConfigCB	16	static
+../Core/Src/Encoder/EncoderIf.c:71:18:ENC0_ReadyToMeasureCB	16	static
+../Core/Src/Encoder/EncoderIf.c:81:18:ENC0_MeasureCpltCB	16	static
+../Core/Src/Encoder/EncoderIf.c:93:18:ENC1_StartLearningCB	16	static
+../Core/Src/Encoder/EncoderIf.c:106:18:ENC1_StopLearningCB	16	static
+../Core/Src/Encoder/EncoderIf.c:115:18:ENC1_CheckConfigCB	16	static
+../Core/Src/Encoder/EncoderIf.c:124:18:ENC1_ReadyToMeasureCB	16	static
+../Core/Src/Encoder/EncoderIf.c:142:18:ENC1_MeasureCpltCB	16	static

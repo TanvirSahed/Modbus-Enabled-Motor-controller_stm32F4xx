@@ -1,0 +1,8 @@
+../Core/Src/BTS7960/BTS7960_Interface.c:39:6:BTS7960_Init_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:58:6:BTS7960_LeftPin_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:64:6:BTS7960_RightPin_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:70:18:BTS7960_StartPWM_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:88:18:BTS7960_StopPWM_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:104:18:BTS7960_SetDuty_If	32	static
+../Core/Src/BTS7960/BTS7960_Interface.c:152:6:BTS7960_DelayUS_If	16	static
+../Core/Src/BTS7960/BTS7960_Interface.c:158:18:BTS7860_InitTimer	4	static

@@ -1,0 +1,13 @@
+../Core/Src/Encoder/Encoder.c:23:18:Encoder_Init	3
+../Core/Src/Encoder/Encoder.c:69:6:Encoder_SetResolution	1
+../Core/Src/Encoder/Encoder.c:79:18:Encoder_StartTimer	2
+../Core/Src/Encoder/Encoder.c:93:18:Encoder_StopTimer	2
+../Core/Src/Encoder/Encoder.c:107:6:Encoder_SetPPR	1
+../Core/Src/Encoder/Encoder.c:132:6:Encoder_Update	1
+../Core/Src/Encoder/Encoder.c:156:9:Encoder_GetCount	1
+../Core/Src/Encoder/Encoder.c:176:18:Encoder_SetCount	3
+../Core/Src/Encoder/Encoder.c:199:21:Encoder_GetDir	3
+../Core/Src/Encoder/Encoder.c:223:7:Encoder_CalcPositionAngle	3
+../Core/Src/Encoder/Encoder.c:238:6:Encoder_IndexZCapture	1
+../Core/Src/Encoder/Encoder.c:267:6:Encoder_CalcRPM	5
+../Core/Src/Encoder/Encoder.c:327:6:Encoder_ChACapture	4

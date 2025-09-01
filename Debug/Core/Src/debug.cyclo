@@ -1,0 +1,5 @@
+../Core/Src/debug.c:33:5:dbg_print	3
+../Core/Src/debug.c:58:6:dbg_trace	4
+../Core/Src/debug.c:79:6:dbg_enable	1
+../Core/Src/debug.c:87:6:dbg_disable	1
+../Core/Src/debug.c:97:9:dbg_isEnable	1

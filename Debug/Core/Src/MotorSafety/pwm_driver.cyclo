@@ -1,0 +1,5 @@
+../Core/Src/MotorSafety/pwm_driver.c:3:18:PWM_HW_Init	5
+../Core/Src/MotorSafety/pwm_driver.c:46:18:PWM_HW_Start	2
+../Core/Src/MotorSafety/pwm_driver.c:54:18:PWM_HW_Stop	2
+../Core/Src/MotorSafety/pwm_driver.c:62:18:PWM_HW_SetDuty	6
+../Core/Src/MotorSafety/pwm_driver.c:76:18:PWM_HW_SetFrequency	5

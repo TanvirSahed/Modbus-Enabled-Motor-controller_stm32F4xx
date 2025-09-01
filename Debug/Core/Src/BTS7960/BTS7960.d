@@ -1,0 +1,3 @@
+Core/Src/BTS7960/BTS7960.o: ../Core/Src/BTS7960/BTS7960.c \
+ ../Core/Src/BTS7960/BTS7960.h
+../Core/Src/BTS7960/BTS7960.h:

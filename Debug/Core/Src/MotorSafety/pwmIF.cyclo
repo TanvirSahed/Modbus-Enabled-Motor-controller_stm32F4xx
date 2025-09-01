@@ -1,0 +1,5 @@
+../Core/Src/MotorSafety/pwmIF.c:10:18:PWM_Init	2
+../Core/Src/MotorSafety/pwmIF.c:22:18:PWM_Start	1
+../Core/Src/MotorSafety/pwmIF.c:27:18:PWM_Stop	1
+../Core/Src/MotorSafety/pwmIF.c:32:18:PWM_SetDutyCycle	2
+../Core/Src/MotorSafety/pwmIF.c:42:18:PWM_SetFrequency	2

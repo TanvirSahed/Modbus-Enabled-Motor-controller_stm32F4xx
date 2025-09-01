@@ -1,0 +1,11 @@
+../Core/Src/DM542T/DM542T_Interface.c:36:6:DM542T_InitInterface	1
+../Core/Src/DM542T/DM542T_Interface.c:50:17:dm542t_init_if	1
+../Core/Src/DM542T/DM542T_Interface.c:54:6:dm542t_enPin_if	1
+../Core/Src/DM542T/DM542T_Interface.c:61:6:dm542t_dirPin_if	1
+../Core/Src/DM542T/DM542T_Interface.c:68:17:dm542t_timerInit_if	1
+../Core/Src/DM542T/DM542T_Interface.c:73:17:dm542t_startPWM_if	2
+../Core/Src/DM542T/DM542T_Interface.c:83:17:dm542t_stopPWM_if	2
+../Core/Src/DM542T/DM542T_Interface.c:93:17:dm542t_setPeriod_if	1
+../Core/Src/DM542T/DM542T_Interface.c:101:10:dm542t_getPrescaler_if	1
+../Core/Src/DM542T/DM542T_Interface.c:106:10:dm542t_getSysFreq_if	1
+../Core/Src/DM542T/DM542T_Interface.c:110:6:dm542t_delayUS_if	2

@@ -1,0 +1,2 @@
+../Core/Src/StepperMotor/StepperMotorIf.c:12:9:SMD_ReadDownSen	8	static
+../Core/Src/StepperMotor/StepperMotorIf.c:17:9:SMD_ReadUpSen	8	static
