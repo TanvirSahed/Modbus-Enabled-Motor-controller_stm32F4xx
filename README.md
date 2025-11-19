@@ -18,7 +18,7 @@ industrial-grade **Modbus TCP/RTU**, encoder-based feedback, PID control, and ro
 
 <!-- Update the image below with an actual screenshot from your hosted site -->
 <p align="center">
-  <img src="docs/assets/image/preview.jpg" alt="Project Website Preview" width="750">
+  <img src="docs/assets/image/prev.jpg" alt="Project Website Preview" width="750">
 </p>
 
 ---
@@ -58,6 +58,7 @@ For questions or collaboration:
 🔗 GitHub: https://github.com/tanvirONsearch
 
 ---
+
 
 
 
