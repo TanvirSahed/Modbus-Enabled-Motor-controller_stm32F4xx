@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Universal Motor Controller – Runtime Emulator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2 class="title">Universal Motor Controller – Modbus Runtime Emulator</h2>
+
+  <div id="app">
+    <!-- LEFT: Monitor -->
+    <aside id="leftPanel">
+      <div id="monitor" class="monitor" aria-label="Runtime Monitor">
+        <div class="monitor-title">
+          <span>REAL-TIME MONITOR</span>
+          <span class="pill" id="pidPill">PID ON</span>
+        </div>
+
+        <div class="monitor-grid">
+          <div class="metric">
+            <div class="k">Current Angle</div>
+            <div class="v"><span id="curAngle">--</span><span class="unit">°</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">Target Angle</div>
+            <div class="v"><span id="tgtAngle">--</span><span class="unit">°</span></div>
+          </div>
+
+          <div class="metric">
+            <div class="k">Speed</div>
+            <div class="v"><span id="spd">--</span><span class="unit">°/s</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">Direction</div>
+            <div class="v"><span id="dir">--</span></div>
+          </div>
+
+          <div class="metric">
+            <div class="k">Modbus ID</div>
+            <div class="v"><span id="mbId">--</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">IP Address</div>
+            <div class="v mono"><span id="mbIp">--</span></div>
+          </div>
+
+          <div class="metric">
+            <div class="k">Baud</div>
+            <div class="v mono"><span id="mbBaud">--</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">RUN PWM</div>
+            <div class="v"><span id="mbRunDuty">--</span><span class="unit">%</span></div>
+          </div>
+        </div>
+
+        <div class="monitor-subtitle">PWM (Running / Holding)</div>
+
+        <div class="pwm-bars">
+          <div class="pwm-row">
+            <span class="pwm-label">RUN</span>
+            <div class="pwm-bar"><div class="pwm-fill" id="pwmRun"></div></div>
+            <span class="pwm-val" id="pwmRunVal">--%</span>
+          </div>
+
+          <div class="pwm-row">
+            <span class="pwm-label">HOLD</span>
+            <div class="pwm-bar"><div class="pwm-fill pwm-fill--hold" id="pwmHold"></div></div>
+            <span class="pwm-val" id="pwmHoldVal">--%</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: System -->
+    <section id="rightPanel">
+      <svg id="wires" aria-hidden="true"></svg>
+
+      <div id="pwmScope" class="scope" aria-label="PWM Scope">
+        <div class="scope-head">
+          <span id="scopeTitle">PWM OUTPUT</span>
+          <span class="scope-meta">Duty: <b id="scopeDuty">--%</b></span>
+        </div>
+        <div class="scope-wave" id="scopeWave"></div>
+      </div>
+
+      <div id="dcMotor" class="motor motor--dc" aria-label="DC Motor">
+        <div class="limit-label">LIMIT SENSOR</div>
+        <div class="sensor-dot" title="Limit sensor"></div>
+
+        <div class="motor-shape motor-shape--dc">
+          <div class="shaft"></div>
+        </div>
+
+        <div class="motor-label">DC Motor</div>
+
+        <div class="driver-box driver-box--dc" title="BTS7960 Driver">
+          BTS7960
+          <div class="fins"></div>
+        </div>
+      </div>
+
+      <div id="stepperMotor" class="motor motor--stepper" aria-label="Stepper Motor">
+        <div class="limit-label">LIMIT SENSOR</div>
+        <div class="sensor-dot" title="Limit sensor"></div>
+
+        <div class="motor-shape motor-shape--stepper">
+          <div class="shaft"></div>
+        </div>
+
+        <div class="motor-label">Stepper Motor</div>
+
+        <div class="driver-box driver-box--stepper" title="DM542T Driver">
+          DM542T
+          <div class="ports">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="encoder" aria-label="Quadrature Encoder">
+        <div class="enc-outer"></div>
+        <div class="enc-inner"></div>
+        <div class="enc-label" id="encLabel">Quad Encoder</div>
+      </div>
+
+      <div id="mcu" class="chip" aria-label="MCU">
+        <div class="chip-core">STM32F4<br/>Universal<br/>Controller</div>
+        <div class="pins pins--top" aria-hidden="true"></div>
+        <div class="pins pins--right" aria-hidden="true"></div>
+        <div class="pins pins--bottom" aria-hidden="true"></div>
+        <div class="pins pins--left" aria-hidden="true"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- NEW: MODBUS CONTROLLER (below BOTH panels) -->
+  <section id="modbusController" class="mb-panel" aria-label="Modbus Controller">
+    <div class="mb-head">
+      <div class="mb-title">MODBUS CONTROLLER</div>
+      <div class="mb-status">
+        State: <b id="mbState">HOLD</b>
+        <span class="mb-sep">|</span>
+        Motor: <b id="mbMotorLive">DC</b>
+      </div>
+    </div>
+
+    <div class="mb-grid">
+      <div class="mb-card">
+        <div class="mb-card-title">Device Select</div>
+
+        <label class="mb-field">
+          <span>Motor Type</span>
+          <select id="mbMotorType">
+            <option value="dc">DC Motor (BTS7960)</option>
+            <option value="stepper">Stepper (DM542T)</option>
+          </select>
+        </label>
+
+        <label class="mb-field mb-inline">
+          <input type="checkbox" id="mbPidEnable" />
+          <span>PID Enable</span>
+        </label>
+
+        <label class="mb-field">
+          <span>Direction</span>
+          <select id="mbDirection">
+            <option value="cw">Clockwise</option>
+            <option value="ccw">Anti-Clockwise</option>
+          </select>
+        </label>
+
+        <label class="mb-field">
+          <span>Speed (deg/s)</span>
+          <input type="number" id="mbSpeed" min="1" max="120" step="1" />
+        </label>
+      </div>
+
+      <div class="mb-card">
+        <div class="mb-card-title">Position Control</div>
+
+        <label class="mb-field">
+          <span>Setpoint (0–1000 → 0–359°)</span>
+          <input type="range" id="mbSetpoint" min="0" max="1000" step="1" />
+          <div class="mb-small">
+            Setpoint: <b id="mbSetpointVal">--</b> → Target: <b id="mbTargetVal">--</b>°
+          </div>
+        </label>
+
+        <button id="mbWrite" class="mb-btn" type="button">WRITE REGISTERS</button>
+        <div class="mb-small muted">Writes update the runtime immediately (no page refresh).</div>
+      </div>
+
+      <div class="mb-card">
+        <div class="mb-card-title">Modbus Params</div>
+
+        <label class="mb-field">
+          <span>Modbus ID</span>
+          <input type="number" id="mbIdInput" min="1" max="247" step="1" />
+        </label>
+
+        <label class="mb-field">
+          <span>IP Address</span>
+          <input type="text" id="mbIpInput" placeholder="192.168.1.50" />
+        </label>
+
+        <label class="mb-field">
+          <span>Baud</span>
+          <select id="mbBaudSelect">
+            <option>9600</option>
+            <option>19200</option>
+            <option>38400</option>
+            <option>57600</option>
+            <option selected>115200</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="mb-card">
+        <div class="mb-card-title">PWM</div>
+
+        <label class="mb-field">
+          <span>Running Duty (%)</span>
+          <input type="range" id="mbRunDuty" min="0" max="100" step="1" />
+          <div class="mb-small">RUN: <b id="mbRunDutyVal">--</b>%</div>
+        </label>
+
+        <label class="mb-field">
+          <span>Holding Duty (%)</span>
+          <input type="range" id="mbHoldDuty" min="0" max="100" step="1" />
+          <div class="mb-small">HOLD: <b id="mbHoldDutyVal">--</b>%</div>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <script src="sim.js"></script>
+</body>
+</html>

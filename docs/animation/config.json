@@ -1,0 +1,104 @@
+{
+  "layout": {
+    "dcMotor": {
+      "enabled": true,
+      "posPct": { "x": 10, "y": 18 },
+      "shaft": { "length": 34, "anchor": "center" }
+    },
+    "stepperMotor": {
+      "enabled": true,
+      "posPct": { "x": 70, "y": 18 },
+      "shaft": { "length": 34, "anchor": "center" }
+    },
+    "encoder": {
+      "posPct": { "x": 44, "y": 16 },
+      "outerRadius": 36,
+      "innerRadius": 14,
+      "rotateInner": true,
+      "innerSpeedMultiplier": 2.0,
+      "label": "Quad Encoder"
+    },
+    "mcu": {
+      "posPct": { "x": 50, "y": 55 },
+      "bodySize": 120,
+      "pinsPerSide": 7
+    },
+    "pwmScope": {
+      "enabled": true,
+      "posPct": { "x": 14, "y": 73 },
+      "sizePct": { "w": 72, "h": 26 },
+      "title": "PWM OUTPUT (RUN)"
+    }
+  },
+
+  "connections": [
+    {
+      "id": "mcu_bts",
+      "type": "logic",
+      "color": "#60a5fa",
+      "arrow": "none",
+      "pointsPct": [[20,54],[20, 60], [50, 60]]
+    },
+    {
+      "id": "mcu_dmt",
+      "type": "logic",
+      "color": "#60a5fa",
+      "arrow": "none",
+      "pointsPct": [[80,54],[80, 60], [58, 60]]
+    },
+    {
+      "id": "encoder_to_mcu",
+      "type": "logic",
+      "color": "#22c55e",
+      "arrow": "none",
+      "pointsPct": [[49, 30], [49, 42]]
+    },
+    {
+      "id": "bts_dc",
+      "type": "pwm",
+      "color": "#60a5fa",
+      "arrow": "none",
+      "pointsPct": [[14, 26],[10, 26], [10, 50], [12, 50]]
+    },
+    {
+      "id": "dmt_stepper",
+      "type": "logic",
+      "color": "#60a5fa",
+      "arrow": "none",
+      "pointsPct": [[87, 26],[91, 26], [91, 50], [88, 50]]
+    },
+    {
+      "id": "pwm",
+      "type": "logic",
+      "color": "#60a5fa",
+      "arrow": "none",
+      "pointsPct": [[49, 73], [49, 67]]
+    }
+  ],
+
+  "motion": {
+    "direction": "ccw",
+    "speedDegPerSec": 30,
+    "currentAngle": 42,
+    "targetAngle": 240
+  },
+
+  "pid": { "enabled": true },
+
+  "modbus": {
+    "id": 1,
+    "baud": 115200,
+    "ip": "192.168.1.50"
+  },
+
+  "pwm": {
+    "runningDuty": 60,
+    "holdingDuty": 20,
+    "periodPx": 64
+  },
+
+  "ui": {
+    "motorType": "dc",
+    "stopToleranceDeg": 1
+  }
+}
