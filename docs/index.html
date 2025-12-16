@@ -23,7 +23,7 @@
         </p>
 
         <div class="header-btns">
-            <a class="btn-primary" href="https://github.com/tanvirONsearch/Modbus-Enabled-Motor-controller_stm32F4xx.git" target="_blank">GitHub Repository</a>
+            <a class="btn-primary" href="https://github.com/tanvirSahed/Modbus-Enabled-Motor-controller_stm32F4xx.git" target="_blank">GitHub Repository</a>
             <a class="btn-secondary" href="https://your_main_portfolio.com">Find Me</a>
         </div>
     </header>
@@ -78,6 +78,33 @@
 
             </div>
         </section>
+
+        <!-- ======================================== -->
+        <!--           INTERACTIVE EMULATOR           -->
+        <!-- ======================================== -->
+        <section id="emulator" class="section fade-in emulator-box">
+        <h2 class="section-title">Interactive Emulator</h2>
+        <p class="section-subtitle">
+            Live Modbus-style control + motor/encoder visualization (runs in-browser).
+        </p>
+
+        <div class="emulator-embed">
+            <iframe
+            class="emulator-frame"
+            src="animation/index.html"
+            title="Universal Motor Controller Emulator"
+            loading="lazy"
+            frameborder="0"
+            ></iframe>
+        </div>
+
+        <div class="emulator-actions">
+            <a class="btn-secondary" href="animation/index.html" target="_blank" rel="noopener">
+            Open Fullscreen
+            </a>
+        </div>
+        </section>
+
 
 
         <!-- ================== DEMO VIDEO ================== -->
@@ -192,6 +219,405 @@
             <h2 class="section-title">3D PCB View</h2>
             <img src="assets/image/Slide7.JPG" class="proj-img" />
         </section>
+
+
+        <!-- ===================== Firmware Sample (Auto-scrolling IDE window) ===================== -->
+        <section id="firmware-sample" style="margin-top: 28px;">
+        <div style="margin-bottom: 14px;">
+            <h2 style="margin: 0 0 6px 0;">Firmware Sample</h2>
+            <p style="margin: 0; opacity: 0.85;">
+            Auto-scrolling excerpt from <code>main.c</code> and <code>app_main.c</code> (highlight advances line-by-line).
+            </p>
+        </div>
+
+        <style>
+            /* Self-contained styles so you don't need to touch assets/style.css */
+            .fw-editor{
+            border: 1px solid rgba(148,163,184,.35);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #0b1220;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+            max-width: 980px;
+            }
+            .fw-tabs{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:10px 12px;
+            background: rgba(15,23,42,.92);
+            border-bottom: 1px solid rgba(148,163,184,.22);
+            user-select:none;
+            }
+            .fw-dotbar{
+            display:flex; gap:6px; margin-right: 8px;
+            }
+            .fw-dot{ width:10px; height:10px; border-radius:999px; opacity:.9; }
+            .fw-dot.r{ background:#ef4444; } .fw-dot.y{ background:#f59e0b; } .fw-dot.g{ background:#22c55e; }
+
+            .fw-tab{
+            border: 1px solid rgba(148,163,184,.25);
+            background: rgba(30,41,59,.55);
+            color: rgba(226,232,240,.92);
+            padding: 7px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: transform .12s ease, background .12s ease;
+            white-space: nowrap;
+            }
+            .fw-tab:hover{ transform: translateY(-1px); background: rgba(51,65,85,.65); }
+            .fw-tab.is-active{
+            background: rgba(59,130,246,.25);
+            border-color: rgba(59,130,246,.45);
+            color: #e2e8f0;
+            }
+            .fw-spacer{ flex: 1; }
+            .fw-btn{
+            border: 1px solid rgba(148,163,184,.25);
+            background: rgba(30,41,59,.55);
+            color: rgba(226,232,240,.92);
+            padding: 7px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            }
+
+            .fw-body{
+            position: relative;
+            height: 360px;
+            overflow: auto;
+            background:
+                radial-gradient(1200px 400px at 20% -10%, rgba(59,130,246,.10), transparent 60%),
+                radial-gradient(900px 400px at 80% 110%, rgba(34,197,94,.08), transparent 60%),
+                #0b1220;
+            }
+            .fw-code{
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+            font-size: 13px;
+            line-height: 20px;
+            padding: 14px 0;
+            min-width: 720px;
+            }
+
+            .fw-line{
+            display: grid;
+            grid-template-columns: 58px 1fr;
+            gap: 0;
+            padding: 0 14px;
+            align-items: center;
+            white-space: pre;
+            }
+            .fw-ln{
+            color: rgba(148,163,184,.70);
+            text-align: right;
+            padding-right: 14px;
+            border-right: 1px solid rgba(148,163,184,.16);
+            margin-right: 14px;
+            }
+            .fw-txt{
+            color: rgba(226,232,240,.92);
+            }
+            .fw-line.is-active{
+            background: rgba(59,130,246,.14);
+            box-shadow: inset 0 0 0 1px rgba(59,130,246,.25);
+            }
+            .fw-line.is-active .fw-ln{ color: rgba(226,232,240,.92); }
+            .fw-cursor{
+            position:absolute;
+            left: 0;
+            right: 0;
+            height: 20px;
+            pointer-events:none;
+            background: linear-gradient(90deg, rgba(59,130,246,.16), rgba(34,197,94,.08));
+            opacity: .22;
+            transform: translateY(-9999px);
+            transition: transform .10s linear;
+            }
+
+            .fw-hidden{ display:none; }
+
+            @media (max-width: 820px){
+            .fw-editor{ max-width: 100%; }
+            .fw-code{ min-width: 0; }
+            }
+        </style>
+
+        <div class="fw-editor" data-fw-speed-ms="650">
+            <div class="fw-tabs" role="tablist" aria-label="Firmware Sample Tabs">
+            <div class="fw-dotbar" aria-hidden="true">
+                <div class="fw-dot r"></div><div class="fw-dot y"></div><div class="fw-dot g"></div>
+            </div>
+            <button class="fw-tab is-active" type="button" data-fw-tab="main">main.c</button>
+            <button class="fw-tab" type="button" data-fw-tab="app">app_main.c</button>
+            <div class="fw-spacer"></div>
+            <button class="fw-btn" type="button" data-fw-action="toggle">Pause</button>
+            </div>
+
+            <div class="fw-body" data-fw-body>
+            <div class="fw-cursor" data-fw-cursor></div>
+
+            <div class="fw-code" data-fw-panel="main"></div>
+            <div class="fw-code fw-hidden" data-fw-panel="app"></div>
+            </div>
+        </div>
+
+        <!-- Code sources (kept as plain text so you don't need extra files) -->
+        <script type="text/plain" id="fw-src-main">
+        int main(void)
+        {
+        /* Initialize all configured peripherals */
+        MX_GPIO_Init();
+        MX_DMA_Init();
+        MX_USART2_UART_Init();
+        MX_TIM1_Init();
+        MX_TIM2_Init();
+        MX_TIM14_Init();
+        MX_SPI2_Init();
+        MX_USART1_UART_Init();
+        MX_TIM3_Init();
+        MX_TIM4_Init();
+        MX_SPI1_Init();
+        MX_TIM10_Init();
+        /* USER CODE BEGIN 2 */
+
+        APP_Init();
+        while (1)
+        {
+
+            static uint32_t tick1 = 0;
+            if((HAL_GetTick() - tick1)>= 1000){
+                tick1 = HAL_GetTick();
+                HAL_GPIO_TogglePin(LED_D2_GPIO_Port, LED_D2_Pin);
+            }
+
+            APP_Main();
+            Modbus_TCP_Handler_Loop();
+
+            /* USER CODE END WHILE */
+
+            /* USER CODE BEGIN 3 */
+        }
+        /* USER CODE END 3 */
+        }
+        </script>
+
+        <script type="text/plain" id="fw-src-app">
+        void APP_Init(void){
+
+            ui.MotorType = DC_MOTOR;
+            DBG_Init();
+            HBRIDGE_Init();
+            LS_Init();
+            QEI_Init();
+            STP_M_Init();
+            Wiz500_Init();
+            TS_Init();
+        }
+
+        void APP_Main(void){
+
+            static uint8_t ledtick = 0;
+            static uint32_t tick1 = 0;
+
+            if((HAL_GetTick() - tick1)>= 1000){
+                tick1 = HAL_GetTick();
+                HAL_GPIO_TogglePin(LED_D1_GPIO_Port, LED_D1_Pin);
+            }
+
+            if(LS_Calibration_Flag && LS_Calib_Command){
+                LS_Calibrate();
+            }
+
+            QEI_Poll();
+
+            Modbus_Holding_Poll();
+            Modbus_Coils_Poll();
+
+            STP_M_Poll();
+
+            PID_SetTargetAngle(ui.TargetAngle);
+            PID_Poll();
+
+            if((HAL_GetTick()-ui.PWMTick)>=20){
+                ui.PWMTick = HAL_GetTick();
+                if(ui.MotorIsHolding){
+                    PWM_SetDutyCycle(ui.HoldDutyCycle);
+                }
+                else{
+                    PWM_SetDutyCycle(ui.RunDutyCycle);
+                }
+            }
+
+            if(ui.MotorType == DC_MOTOR){
+                if(ui.TargetAngle == ui.CurrentAngle){
+                    ui.MotorIsHolding = 1;
+                }
+                else if(!ui.MotorIsHolding){
+                    if(ui.PIDEnabled){
+                        //DBG_PRINT("%ld %ld\r\n",ui.TargetAngle , ui.CurrentAngle);
+                        //HBRIDGE_SetSpeed(ui.Speed);
+
+                    }
+                    else{
+                        HBRIDGE_SetSpeed(ui.Speed);
+
+                    }
+                }
+
+                if(ui.MotorIsHolding){
+                    if(ui.TargetAngle != ui.CurrentAngle){
+                        ui.MotorIsHolding = 0;
+                    }
+                }
+
+                if(ui.CalibMode == 1){
+                    HBRIDGE_Calib_Start();
+                }
+                else{
+                    if(ui.MotorIsHolding){
+                        HBRIDGE_Hold();
+                    }
+                    else{
+                        if(ui.PIDEnabled){
+                            HBRIDGE_PID_Spin();
+                        }
+                        else{
+                            HBRIDGE_ApplyControl();
+                        }
+                    }
+                }
+            }
+            else if(ui.MotorType == STEPPER_MOTOR){
+                STP_M_ApplyControl();
+            }
+
+            Wiz500_Poll();
+            Modbus_RTU_Handler();
+        }
+        </script>
+
+        <script>
+            // Self-contained script so you don't need to touch assets/slider.js
+            (function(){
+            function escapeHtml(s){
+                return s.replace(/[&<>"']/g, (c) => ({
+                "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+                }[c]));
+            }
+
+            const editor = document.querySelector(".fw-editor");
+            if(!editor) return;
+
+            const speed = Math.max(120, Number(editor.getAttribute("data-fw-speed-ms")) || 650);
+            const body = editor.querySelector("[data-fw-body]");
+            const cursor = editor.querySelector("[data-fw-cursor]");
+            const tabs = Array.from(editor.querySelectorAll("[data-fw-tab]"));
+            const panels = {
+                main: editor.querySelector('[data-fw-panel="main"]'),
+                app: editor.querySelector('[data-fw-panel="app"]'),
+            };
+
+            const srcMain = document.getElementById("fw-src-main")?.textContent || "";
+            const srcApp  = document.getElementById("fw-src-app")?.textContent || "";
+
+            function render(panelEl, text){
+                const lines = text.replace(/\r\n/g,"\n").split("\n");
+                panelEl.innerHTML = lines.map((ln, i) => {
+                const safe = ln.length ? escapeHtml(ln) : "&nbsp;";
+                return `<div class="fw-line" data-fw-line="${i}">
+                            <div class="fw-ln">${String(i+1).padStart(3," ")}</div>
+                            <div class="fw-txt">${safe}</div>
+                        </div>`;
+                }).join("");
+                panelEl._fwLines = Array.from(panelEl.querySelectorAll(".fw-line"));
+                panelEl._fwIndex = 0;
+            }
+
+            render(panels.main, srcMain.trim());
+            render(panels.app,  srcApp.trim());
+
+            let activeKey = "main";
+            let running = true;
+            let timer = null;
+
+            function setActive(key){
+                activeKey = key;
+                tabs.forEach(t => t.classList.toggle("is-active", t.getAttribute("data-fw-tab") === key));
+                Object.entries(panels).forEach(([k, el]) => el.classList.toggle("fw-hidden", k !== key));
+                // reset scroll to keep it neat when switching tabs
+                body.scrollTop = 0;
+                // move cursor offscreen until next tick
+                cursor.style.transform = "translateY(-9999px)";
+            }
+
+            function highlightNext(){
+                const panel = panels[activeKey];
+                if(!panel || !panel._fwLines || !panel._fwLines.length) return;
+
+                // clear previous active line
+                panel._fwLines.forEach(el => el.classList.remove("is-active"));
+
+                // wrap
+                if(panel._fwIndex >= panel._fwLines.length) panel._fwIndex = 0;
+
+                const lineEl = panel._fwLines[panel._fwIndex];
+                lineEl.classList.add("is-active");
+
+                // scroll to keep the active line roughly centered
+                const targetTop = lineEl.offsetTop - (body.clientHeight * 0.42);
+                const maxScroll = body.scrollHeight - body.clientHeight;
+                body.scrollTop = Math.max(0, Math.min(maxScroll, targetTop));
+
+                // cursor band follows the highlighted line
+                const cursorY = lineEl.offsetTop - body.scrollTop;
+                cursor.style.transform = `translateY(${Math.max(0, cursorY)}px)`;
+
+                panel._fwIndex += 1;
+            }
+
+            function start(){
+                if(timer) return;
+                timer = setInterval(() => { if(running) highlightNext(); }, speed);
+            }
+            function stop(){
+                if(!timer) return;
+                clearInterval(timer);
+                timer = null;
+            }
+
+            // Tabs
+            tabs.forEach(btn => {
+                btn.addEventListener("click", () => setActive(btn.getAttribute("data-fw-tab")));
+            });
+
+            // Pause/Play
+            const toggleBtn = editor.querySelector('[data-fw-action="toggle"]');
+            if(toggleBtn){
+                toggleBtn.addEventListener("click", () => {
+                running = !running;
+                toggleBtn.textContent = running ? "Pause" : "Play";
+                if(running) highlightNext(); // immediate feedback
+                });
+            }
+
+            // Kickoff
+            setActive("main");
+            highlightNext();
+            start();
+
+            // Respect reduced motion
+            try{
+                if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+                running = false;
+                if(toggleBtn) toggleBtn.textContent = "Play";
+                }
+            }catch(e){}
+            })();
+        </script>
+        </section>
+        <!-- =================== /Firmware Sample =================== -->
+
 
 
         <section id="fw-features" class="section fade-in">
