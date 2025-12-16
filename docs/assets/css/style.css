@@ -244,4 +244,37 @@ h1, h2 {
     background: rgba(255, 0, 0, 1);
     transform: translate(-50%, -50%) scale(1.1);
 }
+/* =================== EMULATOR EMBED ====================== */
+.emulator-box {
+  background: white;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 22px;
+}
 
+.section-subtitle {
+  margin-top: -6px;
+  margin-bottom: 14px;
+  color: #555;
+  font-size: 14px;
+}
+
+.emulator-embed {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e9e9e9;
+  background: #0b1220; /* looks good while iframe loads */
+}
+
+.emulator-frame {
+  width: 100%;
+  height: 720px;       /* adjust if you want */
+  display: block;
+}
+
+.emulator-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
